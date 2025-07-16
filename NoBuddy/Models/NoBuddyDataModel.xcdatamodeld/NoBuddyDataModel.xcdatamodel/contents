@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CachedBlock" representedClassName="CachedBlock" syncable="YES" codeGenerationType="class">
+        <attribute name="archived" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="cachedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="contentData" optional="YES" attributeType="Binary"/>
+        <attribute name="createdTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="hasChildren" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="lastEditedTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="parentId" optional="YES" attributeType="String"/>
+        <attribute name="tokenId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="CachedDatabase" representedClassName="CachedDatabase" syncable="YES" codeGenerationType="class">
+        <attribute name="archived" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="cachedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="coverData" optional="YES" attributeType="Binary"/>
+        <attribute name="createdTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="iconData" optional="YES" attributeType="Binary"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="lastEditedTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="propertiesData" optional="YES" attributeType="Binary"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="tokenId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="CachedPage" representedClassName="CachedPage" syncable="YES" codeGenerationType="class">
+        <attribute name="archived" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="cachedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="coverData" optional="YES" attributeType="Binary"/>
+        <attribute name="createdTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="iconData" optional="YES" attributeType="Binary"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="lastEditedTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="parentDatabaseId" optional="YES" attributeType="String"/>
+        <attribute name="propertiesData" optional="YES" attributeType="Binary"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="tokenId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="TokenEntity" representedClassName="TokenEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isValid" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="lastValidated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="workspaceIcon" optional="YES" attributeType="String"/>
+        <attribute name="workspaceName" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="WidgetConfiguration" representedClassName="WidgetConfiguration" syncable="YES" codeGenerationType="class">
+        <attribute name="configurationData" optional="YES" attributeType="Binary"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="databaseId" optional="YES" attributeType="String"/>
+        <attribute name="displayName" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="tokenId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="widgetType" optional="YES" attributeType="String"/>
+    </entity>
+</model>
