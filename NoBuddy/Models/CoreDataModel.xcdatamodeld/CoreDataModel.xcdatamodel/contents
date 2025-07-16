@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22505" systemVersion="22G320" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CachedDatabase" representedClassName="CachedDatabase" syncable="YES" codeGenerationType="class">
+        <attribute name="createdTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="isArchived" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="lastCached" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="lastEditedTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="propertiesData" optional="YES" attributeType="Binary"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="tokenId" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
+        <relationship name="pages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CachedPage" inverseName="database" inverseEntity="CachedPage"/>
+    </entity>
+    <entity name="CachedPage" representedClassName="CachedPage" syncable="YES" codeGenerationType="class">
+        <attribute name="createdTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="isArchived" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="lastCached" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="lastEditedTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="parentDatabaseId" optional="YES" attributeType="String"/>
+        <attribute name="parentPageId" optional="YES" attributeType="String"/>
+        <attribute name="propertiesData" optional="YES" attributeType="Binary"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="tokenId" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
+        <relationship name="blocks" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CachedBlock" inverseName="page" inverseEntity="CachedBlock"/>
+        <relationship name="database" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CachedDatabase" inverseName="pages" inverseEntity="CachedDatabase"/>
+    </entity>
+    <entity name="CachedBlock" representedClassName="CachedBlock" syncable="YES" codeGenerationType="class">
+        <attribute name="blockType" optional="YES" attributeType="String"/>
+        <attribute name="contentData" optional="YES" attributeType="Binary"/>
+        <attribute name="createdTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="hasChildren" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="isArchived" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="lastCached" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="lastEditedTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="parentBlockId" optional="YES" attributeType="String"/>
+        <attribute name="plainText" optional="YES" attributeType="String"/>
+        <attribute name="tokenId" optional="YES" attributeType="String"/>
+        <relationship name="page" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CachedPage" inverseName="blocks" inverseEntity="CachedPage"/>
+    </entity>
+    <entity name="CachedWidgetConfiguration" representedClassName="CachedWidgetConfiguration" syncable="YES" codeGenerationType="class">
+        <attribute name="databaseId" optional="YES" attributeType="String"/>
+        <attribute name="displayName" optional="YES" attributeType="String"/>
+        <attribute name="lastUpdated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="settingsData" optional="YES" attributeType="Binary"/>
+        <attribute name="tokenId" optional="YES" attributeType="String"/>
+        <attribute name="widgetId" optional="YES" attributeType="String"/>
+        <attribute name="widgetType" optional="YES" attributeType="String"/>
+    </entity>
+</model>
