@@ -1,0 +1,36 @@
+{
+  "project_name": "NoBuddy",
+  "bundle_id": "com.nobuddy.app",
+  "deployment_target": "16.0",
+  "swift_version": "5.9",
+  "xcode_version": "15.0",
+  "targets": [
+    {
+      "name": "NoBuddy",
+      "type": "app",
+      "bundle_id": "com.nobuddy.app"
+    },
+    {
+      "name": "NoBuddyWidget",
+      "type": "widget-extension",
+      "bundle_id": "com.nobuddy.app.widget"
+    },
+    {
+      "name": "NoBuddyIntents",
+      "type": "app-intents-extension",
+      "bundle_id": "com.nobuddy.app.intents"
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "KeychainAccess",
+      "url": "https://github.com/kishikawakatsumi/KeychainAccess.git",
+      "version": "4.2.2"
+    },
+    {
+      "name": "SwiftUI-Introspect",
+      "url": "https://github.com/siteline/SwiftUI-Introspect.git",
+      "version": "1.1.3"
+    }
+  ]
+}
