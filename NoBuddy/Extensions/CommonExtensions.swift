@@ -195,3 +195,4 @@ enum AppConstants {
         static let refreshInterval: TimeInterval = 15 * 60 // 15 minutes
     }
 }
+

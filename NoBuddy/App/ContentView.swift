@@ -16,21 +16,13 @@ struct ContentView: View {
                 }
                 .tag(0)
             
-            // Dashboard tab
-            DashboardView()
-                .tabItem {
-                    Image(systemName: selectedTab == 1 ? "rectangle.grid.2x2.fill" : "rectangle.grid.2x2")
-                    Text("Dashboard")
-                }
-                .tag(1)
-            
-            // Settings tab
+            // Info tab
             SettingsView()
                 .tabItem {
-                    Image(systemName: selectedTab == 2 ? "gearshape.fill" : "gearshape")
-                    Text("Settings")
+                    Image(systemName: selectedTab == 1 ? "info.circle.fill" : "info.circle")
+                    Text("Info")
                 }
-                .tag(2)
+                .tag(1)
         }
         .accentColor(.blue)
         .background(

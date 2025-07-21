@@ -45,4 +45,27 @@ struct TokenValidationResponse: Codable {
     let workspaceIcon: String?
     let isValid: Bool
     let error: String?
-} 
+}
+
+/// Comprehensive workspace information model
+struct WorkspaceInfo: Codable {
+    let isValid: Bool
+    let workspaceName: String?
+    let workspaceIcon: String?
+    let userEmail: String?
+    let userType: String?
+    let databaseCount: Int?
+    let pageCount: Int?
+    let error: String?
+    
+    init(isValid: Bool, workspaceName: String?, workspaceIcon: String?, userEmail: String?, userType: String?, databaseCount: Int? = nil, pageCount: Int? = nil, error: String? = nil) {
+        self.isValid = isValid
+        self.workspaceName = workspaceName
+        self.workspaceIcon = workspaceIcon
+        self.userEmail = userEmail
+        self.userType = userType
+        self.databaseCount = databaseCount
+        self.pageCount = pageCount
+        self.error = error
+    }
+}

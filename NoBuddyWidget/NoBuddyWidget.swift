@@ -13,7 +13,7 @@ struct NoBuddyWidget: Widget {
         }
         .configurationDisplayName("Task List")
         .description("Shows your Notion tasks and to-dos")
-        .supportedFamilies([.systemLarge])
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }
 
@@ -45,9 +45,44 @@ struct TaskListProvider: TimelineProvider {
     }
     
     private func loadTasksFromNotionAPI() -> [TaskItem] {
-        // In a real implementation, this would fetch from Notion API
-        // For now, return sample data
-        return sampleTasks
+        // Check if user has selected databases
+        let selectedDatabases = WidgetSupport.getSelectedDatabasesForWidget()
+        
+        if selectedDatabases.isEmpty {
+            // No databases selected - return placeholder data
+            return [
+                TaskItem(
+                    title: "Select databases in NoBuddy app",
+                    isCompleted: false,
+                    priority: .medium,
+                    projectName: "Setup"
+                )
+            ]
+        }
+        
+        // TODO: In a real implementation, this would fetch from selected Notion databases
+        // For now, return sample data but indicate it's from selected databases
+        
+        // NOTE: Widget extensions have strict execution time limits (30 seconds)
+        // Network requests in widgets should be handled carefully with timeouts
+        // and fallback to cached/sample data to prevent "Connection invalidated" errors
+        
+        // Show tasks "from" the selected databases
+        var tasks = sampleTasks
+        if let firstDatabase = selectedDatabases.first {
+            tasks = tasks.map { task in
+                TaskItem(
+                    id: task.id,
+                    title: task.title,
+                    isCompleted: task.isCompleted,
+                    dueDate: task.dueDate,
+                    priority: task.priority,
+                    projectName: firstDatabase.name
+                )
+            }
+        }
+        
+        return tasks
     }
 }
 
@@ -64,46 +99,123 @@ struct TaskListEntry: TimelineEntry {
 struct TaskListWidgetView: View {
     var entry: TaskListProvider.Entry
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.widgetFamily) var widgetFamily
     
     var body: some View {
-        ZStack {
-            // Background with glass morphism effect
-            backgroundView
-            
-            if entry.isLoading {
-                loadingView
-            } else if entry.tasks.isEmpty {
-                emptyStateView
-            } else {
-                taskListView
-            }
+        // Remove the ZStack and background - let the system handle the widget container
+        if entry.isLoading {
+            loadingView
+        } else if entry.tasks.isEmpty {
+            emptyStateView
+        } else {
+            contentView
         }
     }
     
-    // MARK: - Background View
+    // MARK: - Content View (Family-aware)
     
-    private var backgroundView: some View {
-        Rectangle()
-            .fill(
-                LinearGradient(
-                    colors: colorScheme == .dark
-                        ? [Color.black.opacity(0.8), Color(white: 0.05)]
-                        : [Color(white: 0.95), Color.white.opacity(0.9)],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(
-                        LinearGradient(
-                            colors: [.white.opacity(0.3), .clear],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        lineWidth: 1
-                    )
-            )
+    @ViewBuilder
+    private var contentView: some View {
+        switch widgetFamily {
+        case .systemSmall:
+            smallWidgetView
+        case .systemMedium:
+            mediumWidgetView
+        case .systemLarge:
+            taskListView
+        default:
+            taskListView
+        }
+    }
+    
+    // MARK: - Small Widget View
+    
+    private var smallWidgetView: some View {
+        VStack(spacing: 8) {
+            // Compact header
+            HStack {
+                Image(systemName: "list.bullet")
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundColor(.blue)
+                
+                Text("Tasks")
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.primary)
+                
+                Spacer()
+                
+                // Task count
+                Text("\(entry.tasks.filter { !$0.isCompleted }.count)")
+                    .font(.caption2)
+                    .fontWeight(.medium)
+                    .foregroundColor(.secondary)
+            }
+            .padding(.horizontal, 12)
+            
+            // Top 3 tasks
+            VStack(spacing: 4) {
+                ForEach(entry.tasks.filter { !$0.isCompleted }.prefix(3)) { task in
+                    CompactTaskRow(task: task)
+                }
+            }
+            .padding(.horizontal, 12)
+            
+            Spacer()
+        }
+        .padding(.vertical, 12)
+    }
+    
+    // MARK: - Medium Widget View
+    
+    private var mediumWidgetView: some View {
+        VStack(spacing: 0) {
+            // Header
+            HStack {
+                HStack(spacing: 6) {
+                    Image(systemName: "list.bullet")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(.blue)
+                    
+                    Text("Task List")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.primary)
+                }
+                
+                Spacer()
+                
+                // Task count
+                Text("\(entry.tasks.filter { !$0.isCompleted }.count)")
+                    .font(.caption)
+                    .fontWeight(.medium)
+                    .foregroundColor(.secondary)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            
+            Divider()
+                .padding(.horizontal, 16)
+            
+            // Task list (more compact)
+            VStack(spacing: 6) {
+                ForEach(entry.tasks.prefix(4)) { task in
+                    MediumTaskRow(task: task)
+                }
+                
+                if entry.tasks.count > 4 {
+                    HStack {
+                        Text("+ \(entry.tasks.count - 4) more")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                        Spacer()
+                    }
+                    .padding(.horizontal, 16)
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+        }
     }
     
     // MARK: - Loading View
@@ -125,13 +237,7 @@ struct TaskListWidgetView: View {
         VStack(spacing: 12) {
             Image(systemName: "checkmark.circle")
                 .font(.system(size: 32, weight: .medium))
-                .foregroundStyle(
-                    LinearGradient(
-                        colors: [.green, .blue],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
+                .foregroundColor(.green)
             
             Text("All caught up!")
                 .font(.headline)
@@ -152,23 +258,22 @@ struct TaskListWidgetView: View {
             headerView
             
             Divider()
-                .background(.ultraThinMaterial)
                 .padding(.horizontal, 16)
             
             // Task list
-            ScrollView {
-                LazyVStack(spacing: 8) {
-                    ForEach(entry.tasks.prefix(6)) { task in
-                        TaskRowWidget(task: task)
-                    }
-                    
-                    if entry.tasks.count > 6 {
-                        moreTasksView
-                    }
+            VStack(spacing: 8) {
+                ForEach(entry.tasks.prefix(6)) { task in
+                    TaskRowWidget(task: task)
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
+                
+                if entry.tasks.count > 6 {
+                    moreTasksView
+                }
             }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            
+            Spacer(minLength: 0)
         }
     }
     
@@ -178,42 +283,49 @@ struct TaskListWidgetView: View {
         HStack {
             // Icon and title
             HStack(spacing: 8) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(
-                            LinearGradient(
-                                colors: [.blue.opacity(0.8), .purple.opacity(0.8)],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .frame(width: 24, height: 24)
-                    
-                    Image(systemName: "list.bullet")
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundColor(.white)
-                }
+                Image(systemName: "list.bullet")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundColor(.blue)
                 
-                Text("Task List")
-                    .font(.headline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.primary)
+                VStack(alignment: .leading, spacing: 1) {
+                    Text("NoBuddy")
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.primary)
+                    
+                    if !WidgetSupport.getSelectedDatabasesForWidget().isEmpty {
+                        let selectedCount = WidgetSupport.getSelectedDatabaseCount()
+                        Text("\(selectedCount) database\(selectedCount == 1 ? "" : "s")")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                    } else {
+                        Text("No databases selected")
+                            .font(.caption2)
+                            .foregroundColor(.orange)
+                    }
+                }
             }
             
             Spacer()
             
-            // Task count
-            if !entry.tasks.isEmpty {
+            // Task count or configuration needed indicator
+            if WidgetSupport.widgetNeedsConfiguration() {
+                Image(systemName: "gear")
+                    .font(.caption)
+                    .foregroundColor(.orange)
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 3)
+                    .background(Color.orange.opacity(0.1))
+                    .clipShape(RoundedRectangle(cornerRadius: 6))
+            } else if !entry.tasks.isEmpty {
                 Text("\(entry.tasks.filter { !$0.isCompleted }.count)")
                     .font(.caption)
                     .fontWeight(.medium)
                     .foregroundColor(.secondary)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
-                    .background(
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(.ultraThinMaterial)
-                    )
+                    .background(Color.secondary.opacity(0.1))
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
             }
         }
         .padding(.horizontal, 16)
@@ -236,10 +348,112 @@ struct TaskListWidgetView: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
-        .background(
-            RoundedRectangle(cornerRadius: 8)
-                .fill(.ultraThinMaterial.opacity(0.5))
-        )
+    }
+}
+
+// MARK: - Compact Task Row (Small Widget)
+
+struct CompactTaskRow: View {
+    let task: TaskItem
+    
+    var body: some View {
+        HStack(spacing: 6) {
+            // Simple priority dot
+            Circle()
+                .fill(task.priority?.color ?? .gray)
+                .frame(width: 6, height: 6)
+            
+            // Task title
+            Text(task.title)
+                .font(.caption2)
+                .fontWeight(.medium)
+                .foregroundColor(task.isCompleted ? .secondary : .primary)
+                .strikethrough(task.isCompleted)
+                .lineLimit(1)
+            
+            Spacer()
+            
+            // Due date (if today or overdue)
+            if let dueDate = task.dueDate {
+                let dayDiff = Calendar.current.dateComponents([.day], from: Date(), to: dueDate).day ?? 0
+                if dayDiff <= 0 {
+                    Text(dayDiff == 0 ? "Today" : "\(abs(dayDiff))d ago")
+                        .font(.caption2)
+                        .foregroundColor(dayDiff == 0 ? .orange : .red)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Medium Task Row
+
+struct MediumTaskRow: View {
+    let task: TaskItem
+    
+    var body: some View {
+        HStack(spacing: 8) {
+            // Checkbox
+            ZStack {
+                Circle()
+                    .fill(task.isCompleted ? .green : .clear)
+                    .frame(width: 12, height: 12)
+                    .overlay(
+                        Circle()
+                            .stroke(task.isCompleted ? .green : .gray, lineWidth: 1)
+                    )
+                if task.isCompleted {
+                    Image(systemName: "checkmark")
+                        .font(.system(size: 8, weight: .bold))
+                        .foregroundColor(.white)
+                }
+            }
+            
+            // Task content
+            VStack(alignment: .leading, spacing: 1) {
+                Text(task.title)
+                    .font(.caption)
+                    .fontWeight(.medium)
+                    .foregroundColor(task.isCompleted ? .secondary : .primary)
+                    .strikethrough(task.isCompleted)
+                    .lineLimit(1)
+                
+                if let dueDate = task.dueDate {
+                    Text(formatDueDate(dueDate))
+                        .font(.caption2)
+                        .foregroundColor(dueDateColor(dueDate))
+                }
+            }
+            
+            Spacer()
+            
+            // Priority indicator
+            if let priority = task.priority {
+                Circle()
+                    .fill(priority.color)
+                    .frame(width: 4, height: 4)
+            }
+        }
+    }
+    
+    private func formatDueDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d"
+        return formatter.string(from: date)
+    }
+    
+    private func dueDateColor(_ date: Date) -> Color {
+        let dayDiff = Calendar.current.dateComponents([.day], from: Date(), to: date).day ?? 0
+        
+        if dayDiff < 0 {
+            return .red
+        } else if dayDiff == 0 {
+            return .orange
+        } else if dayDiff <= 3 {
+            return .yellow
+        } else {
+            return .secondary
+        }
     }
 }
 
@@ -250,27 +464,21 @@ struct TaskRowWidget: View {
     
     var body: some View {
         HStack(spacing: 12) {
-            // Checkbox - Simple tap without intent for now
-            Button(action: {
-                // For now, just a regular button without App Intent
-                // In a real implementation, this would trigger a local update
-            }) {
-                ZStack {
-                    Circle()
-                        .fill(task.isCompleted ? .green : .clear)
-                        .frame(width: 16, height: 16)
-                        .overlay(
-                            Circle()
-                                .stroke(task.isCompleted ? .green : .gray, lineWidth: 1.5)
-                        )
-                    if task.isCompleted {
-                        Image(systemName: "checkmark")
-                            .font(.system(size: 10, weight: .bold))
-                            .foregroundColor(.white)
-                    }
+            // Checkbox
+            ZStack {
+                Circle()
+                    .fill(task.isCompleted ? .green : .clear)
+                    .frame(width: 16, height: 16)
+                    .overlay(
+                        Circle()
+                            .stroke(task.isCompleted ? .green : .gray, lineWidth: 1.5)
+                    )
+                if task.isCompleted {
+                    Image(systemName: "checkmark")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundColor(.white)
                 }
             }
-            .buttonStyle(PlainButtonStyle())
             
             // Task content
             VStack(alignment: .leading, spacing: 2) {
@@ -300,12 +508,7 @@ struct TaskRowWidget: View {
                 priorityIndicator(priority)
             }
         }
-        .padding(.horizontal, 8)
-        .padding(.vertical, 6)
-        .background(
-            RoundedRectangle(cornerRadius: 8)
-                .fill(.ultraThinMaterial.opacity(0.3))
-        )
+        .padding(.vertical, 4)
     }
     
     private func priorityIndicator(_ priority: TaskPriority) -> some View {
@@ -427,4 +630,3 @@ let sampleTasks: [TaskItem] = [
         projectName: "Development"
     )
 ]
-

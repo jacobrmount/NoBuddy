@@ -6,6 +6,7 @@ struct TokenManagementView: View {
     @State private var showingAddToken = false
     @State private var showingDeleteAlert = false
     @State private var tokenToDelete: NotionToken? = nil
+    @State private var tokenToEdit: NotionToken? = nil
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
@@ -39,11 +40,14 @@ struct TokenManagementView: View {
             .sheet(isPresented: $showingAddToken) {
                 AddTokenView(tokenManager: tokenManager)
             }
+            .sheet(item: $tokenToEdit) { token in
+                EditTokenView(token: token, tokenManager: tokenManager)
+            }
             .alert("Delete Token", isPresented: $showingDeleteAlert) {
                 Button("Delete", role: .destructive) {
                     if let token = tokenToDelete {
                         Task {
-                            await tokenManager.deleteToken(token)
+                            let _ = await tokenManager.deleteToken(id: token.id)
                         }
                     }
                 }
@@ -136,8 +140,7 @@ struct TokenManagementView: View {
                     TokenRowView(
                         token: token,
                         onTap: {
-                            // For now, just show token name in console
-                            print("Tapped token: \(token.name)")
+                            tokenToEdit = token
                         },
                         onDelete: {
                             tokenToDelete = token
@@ -223,8 +226,8 @@ struct TokenManagementView: View {
         var body: some View {
             Button(action: onTap) {
                 HStack(spacing: 16) {
-                    // Token icon/workspace info
-                    tokenIcon
+                    // Status indicator
+                    statusIndicator
                     
                     // Token details
                     VStack(alignment: .leading, spacing: 4) {
@@ -233,9 +236,9 @@ struct TokenManagementView: View {
                             .foregroundColor(.primary)
                             .lineLimit(1)
                         
-                        Text("Last edited \(formatDate(token.lastValidated ?? token.createdAt))")
+                        Text(token.isValid ? "Connected" : "Connection Failed")
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(token.isValid ? .green : .red)
                     }
                     
                     Spacer()
@@ -280,54 +283,17 @@ struct TokenManagementView: View {
             .buttonStyle(PlainButtonStyle())
         }
         
-        private var tokenIcon: some View {
+        private var statusIndicator: some View {
             ZStack {
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(
-                        LinearGradient(
-                            colors: token.isValid
-                            ? [.green.opacity(0.7), .blue.opacity(0.7)]
-                            : [.gray.opacity(0.5), .gray.opacity(0.3)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
+                // 40x40 frame for consistent spacing
+                Rectangle()
+                    .fill(Color.clear)
                     .frame(width: 40, height: 40)
                 
-                if let workspaceIcon = token.workspaceIcon, !workspaceIcon.isEmpty {
-                    AsyncImage(url: URL(string: workspaceIcon)) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                    } placeholder: {
-                        Image(systemName: "building.2")
-                            .foregroundColor(.white)
-                            .font(.system(size: 16, weight: .medium))
-                    }
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .frame(width: 36, height: 36)
-                } else {
-                    Image(systemName: "building.2")
-                        .foregroundColor(.white)
-                        .font(.system(size: 16, weight: .medium))
-                }
-                
-                // Status indicator
-                if !token.isValid {
-                    VStack {
-                        Spacer()
-                        HStack {
-                            Spacer()
-                            Circle()
-                                .fill(.red)
-                                .frame(width: 12, height: 12)
-                                .overlay(
-                                    Circle()
-                                        .stroke(.white, lineWidth: 2)
-                                )
-                        }
-                    }
-                }
+                // Centered status circle
+                Circle()
+                    .fill(token.isValid ? .green : .red)
+                    .frame(width: 12, height: 12)
             }
         }
         

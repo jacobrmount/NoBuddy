@@ -3,8 +3,6 @@ import SwiftUI
 /// Main settings view with app preferences and configuration
 struct SettingsView: View {
     @Environment(\.colorScheme) var colorScheme
-    @AppStorage("isDarkModeEnabled") private var isDarkModeEnabled = false
-    @AppStorage("isHapticsEnabled") private var isHapticsEnabled = true
     @State private var showingAbout = false
     @State private var showingLicenses = false
     
@@ -16,14 +14,8 @@ struct SettingsView: View {
                 
                 ScrollView {
                     VStack(spacing: 20) {
-                        // Header section
-                        headerSection
-                        
-                        // Preferences section
-                        preferencesSection
-                        
-                        // About section
-                        aboutSection
+                        // Info section
+                        infoSection
                         
                         Spacer(minLength: 100)
                     }
@@ -31,13 +23,8 @@ struct SettingsView: View {
                     .padding(.top, 20)
                 }
             }
-            .navigationTitle("Settings")
+            .navigationTitle("Info")
             .navigationBarTitleDisplayMode(.large)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    settingsButton
-                }
-            }
             .sheet(isPresented: $showingAbout) {
                 AboutView()
             }
@@ -63,106 +50,12 @@ struct SettingsView: View {
             .ignoresSafeArea()
     }
     
-    // MARK: - Header Section
     
-    private var headerSection: some View {
-        VStack(spacing: 16) {
-            // App icon
-            ZStack {
-                RoundedRectangle(cornerRadius: 24)
-                    .fill(
-                        LinearGradient(
-                            colors: [.blue.opacity(0.8), .purple.opacity(0.8)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                    .frame(width: 80, height: 80)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 24)
-                            .stroke(
-                                LinearGradient(
-                                    colors: [.white.opacity(0.3), .clear],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                ),
-                                lineWidth: 1
-                            )
-                    )
-                
-                Image(systemName: "star.fill")
-                    .font(.system(size: 32, weight: .medium))
-                    .foregroundColor(.white)
-            }
-            
-            VStack(spacing: 4) {
-                Text("NoBuddy")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.primary)
-                
-                Text("Version 1.0.0")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-        }
-    }
     
-    // MARK: - Preferences Section
+    // MARK: - Info Section
     
-    private var preferencesSection: some View {
-        VStack(spacing: 16) {
-            sectionHeader("Preferences")
-            
-            VStack(spacing: 12) {
-                // Dark Mode setting
-                settingsRow(
-                    icon: "moon.fill",
-                    iconColor: .indigo,
-                    title: "Dark Mode",
-                    subtitle: "Automatically adjust the app appearance throughout your device"
-                ) {
-                Toggle("", isOn: $isDarkModeEnabled)
-                    .labelsHidden()
-                    .scaleEffect(0.9)
-                    .onChange(of: isDarkModeEnabled) {
-                        // Apply haptic feedback
-                        if isHapticsEnabled {
-                            let impactFeedback = UIImpactFeedbackGenerator(style: .light)
-                            impactFeedback.impactOccurred()
-                        }
-                    }
-                }
-                
-                // Haptics setting
-                settingsRow(
-                    icon: "hand.tap.fill",
-                    iconColor: .green,
-                    title: "Haptics",
-                    subtitle: "Feel physical feedback on touches throughout the app"
-                ) {
-                Toggle("", isOn: $isHapticsEnabled)
-                    .labelsHidden()
-                    .scaleEffect(0.9)
-                    .onChange(of: isHapticsEnabled) { oldValue, newValue in
-                        // Apply haptic feedback if enabled
-                        if newValue {
-                            let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
-                            impactFeedback.impactOccurred()
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    // MARK: - About Section
-    
-    private var aboutSection: some View {
-        VStack(spacing: 16) {
-            sectionHeader("About")
-            
-            VStack(spacing: 12) {
+    private var infoSection: some View {
+        VStack(spacing: 12) {
                 // About row
                 Button(action: { showingAbout = true }) {
                     settingsRowButton(
@@ -196,43 +89,9 @@ struct SettingsView: View {
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
-            }
         }
     }
     
-    // MARK: - Settings Button
-    
-    private var settingsButton: some View {
-        Button(action: {
-            // Settings button action
-            if isHapticsEnabled {
-                let impactFeedback = UIImpactFeedbackGenerator(style: .light)
-                impactFeedback.impactOccurred()
-            }
-        }) {
-            ZStack {
-                Circle()
-                    .fill(.ultraThinMaterial)
-                    .frame(width: 36, height: 36)
-                    .overlay(
-                        Circle()
-                            .stroke(
-                                LinearGradient(
-                                    colors: [.white.opacity(0.3), .clear],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                ),
-                                lineWidth: 1
-                            )
-                    )
-                
-                Image(systemName: "slider.horizontal.3")
-                    .font(.system(size: 18, weight: .medium))
-                    .foregroundColor(.primary)
-            }
-        }
-        .buttonStyle(NoBuddyScaleButtonStyle())
-    }
     
     // MARK: - Helper Views
     

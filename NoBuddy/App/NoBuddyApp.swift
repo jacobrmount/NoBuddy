@@ -11,4 +11,4 @@ struct NoBuddyApp: App {
                 .preferredColorScheme(nil) // Respect system setting
         }
     }
-} 
+}
