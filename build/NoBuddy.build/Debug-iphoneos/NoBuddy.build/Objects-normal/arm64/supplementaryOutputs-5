@@ -1,0 +1,24 @@
+"/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddy/Models/CoreData/NoBuddyCoreDataModel.swift":
+  diagnostics: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/NoBuddyCoreDataModel.dia"
+  swift-dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/NoBuddyCoreDataModel.swiftdeps"
+  dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/NoBuddyCoreDataModel.d"
+  const-values: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/NoBuddyCoreDataModel.swiftconstvalues"
+  object: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/NoBuddyCoreDataModel.o"
+"/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddy/Views/Settings/SettingsView.swift":
+  const-values: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/SettingsView.swiftconstvalues"
+  dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/SettingsView.d"
+  swift-dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/SettingsView.swiftdeps"
+  diagnostics: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/SettingsView.dia"
+  object: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/SettingsView.o"
+"/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddy/Services/NotionAPI Client.swift":
+  dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/NotionAPI Client.d"
+  diagnostics: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/NotionAPI Client.dia"
+  swift-dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/NotionAPI Client.swiftdeps"
+  object: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/NotionAPI Client.o"
+  const-values: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/NotionAPI Client.swiftconstvalues"
+"/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddy/App/ContentView.swift":
+  dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/ContentView.d"
+  object: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/ContentView.o"
+  swift-dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/ContentView.swiftdeps"
+  diagnostics: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/ContentView.dia"
+  const-values: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/ContentView.swiftconstvalues"

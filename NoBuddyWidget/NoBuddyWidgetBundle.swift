@@ -14,4 +14,3 @@ struct NoBuddyWidgetBundle: WidgetBundle {
         NoBuddyWidget()
     }
 }
-

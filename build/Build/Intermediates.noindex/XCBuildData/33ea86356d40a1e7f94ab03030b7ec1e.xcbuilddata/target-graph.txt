@@ -1,0 +1,4 @@
+Target dependency graph (2 targets)
+Target 'NoBuddy' in project 'NoBuddy'
+➜ Explicit dependency on target 'NoBuddyWidgetExtension' in project 'NoBuddy'
+Target 'NoBuddyWidgetExtension' in project 'NoBuddy' (no dependencies)

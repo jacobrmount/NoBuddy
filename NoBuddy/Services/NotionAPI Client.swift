@@ -292,6 +292,42 @@ class NotionAPIClient {
     
     // MARK: - Database Endpoints
     
+    /// Retrieve complete database details including all metadata fields
+    /// - Parameter databaseId: The database ID to retrieve
+    /// - Returns: Full NotionDatabase object with all fields from Notion's database object spec
+    func retrieveDatabase(databaseId: String) async throws -> NotionDatabase {
+        print("[NotionAPI] 🔍 Retrieving complete database details for ID: \(databaseId)")
+        
+        let endpoint = "/databases/\(databaseId)"
+        
+        do {
+            let database: NotionDatabase = try await makeRequestWithRetry(
+                endpoint: endpoint,
+                method: .GET
+            )
+            
+            print("[NotionAPI] ✅ Successfully retrieved database: \(database.displayTitle)")
+            print("[NotionAPI] - ID: \(database.id)")
+            print("[NotionAPI] - Properties count: \(database.properties?.count ?? 0)")
+            print("[NotionAPI] - Created: \(database.createdTime ?? Date())")
+            print("[NotionAPI] - Last edited: \(database.lastEditedTime ?? Date())")
+            print("[NotionAPI] - URL: \(database.url ?? "N/A")")
+            
+            return database
+        } catch let error as NotionAPIError {
+            print("[NotionAPI] ❌ Failed to retrieve database: \(error.message)")
+            throw error
+        } catch {
+            print("[NotionAPI] ❌ Unexpected error retrieving database: \(error)")
+            throw NotionAPIError(
+                object: "error",
+                status: 500,
+                code: "internal_error",
+                message: "Failed to retrieve database: \(error.localizedDescription)"
+            )
+        }
+    }
+    
     /// Query a database with filters and sorts
     /// - Parameters:
     ///   - databaseId: The database ID to query
@@ -762,9 +798,6 @@ private func shouldRetry(for error: Error) -> Bool {
         maxRetries: Int = 3
     ) async throws -> T {
         var lastError: Error?
-        
-let isWidgetContext = true // Assume widget context for demo
-
         for attempt in 0..<maxRetries {
             do {
                 return try await makeRequest(
@@ -780,10 +813,6 @@ let isWidgetContext = true // Assume widget context for demo
 let jitter = Double.random(in: 0...0.5) // Add jitter
                     let baseDelay = pow(2.0, Double(attempt))
                     let waitTime = (baseDelay + jitter) * 1_000_000_000 // Convert to nanoseconds
-
-                    if isWidgetContext, baseDelay >= 16.0 {
-                        throw TokenError.widgetTimeoutExceeded
-                    }
                     print("[NotionAPI] Rate limited, waiting \(waitTime) seconds...")
                     try? await Task.sleep(nanoseconds: UInt64(waitTime * 1_000_000_000))
                     continue

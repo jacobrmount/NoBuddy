@@ -1,115 +1,215 @@
 import SwiftUI
 import WidgetKit
+import CoreData
 
-/// NoBuddy Widget for displaying Notion data on the home screen
-@available(iOSApplicationExtension 17.0, *)
+/// NoBuddy Widget for displaying Notion database information on the home screen
 struct NoBuddyWidget: Widget {
     let kind: String = "NoBuddyWidget"
+    
+    init() {
+        print("[NoBuddyWidget] ✅ Widget initialized")
+    }
 
-    @available(iOSApplicationExtension 17.0, *)
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: TaskListProvider()) { entry in
-            TaskListWidgetView(entry: entry)
+        print("[NoBuddyWidget] Creating widget configuration")
+        return AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: NotionDatabaseProvider()) { entry in
+            NotionDatabaseWidgetView(entry: entry)
+                .containerBackground(.fill, for: .widget)
         }
-        .configurationDisplayName("Task List")
-        .description("Shows your Notion tasks and to-dos")
+        .configurationDisplayName("Notion Database Widget")
+        .description("Shows your Notion database information")
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }
 
 // MARK: - Widget Provider
 
-struct TaskListProvider: TimelineProvider {
-    func placeholder(in context: Context) -> TaskListEntry {
-        TaskListEntry(date: Date(), tasks: sampleTasks, isLoading: false)
-    }
-
-    func getSnapshot(in context: Context, completion: @escaping (TaskListEntry) -> ()) {
-        let entry = TaskListEntry(date: Date(), tasks: sampleTasks, isLoading: false)
-        completion(entry)
-    }
-
-    func getTimeline(in context: Context, completion: @escaping (Timeline<TaskListEntry>) -> ()) {
-        var entries: [TaskListEntry] = []
-
-        // Generate timeline entries (refresh every 15 minutes)
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .minute, value: hourOffset * 15, to: currentDate)!
-            let entry = TaskListEntry(date: entryDate, tasks: loadTasksFromNotionAPI(), isLoading: false)
-            entries.append(entry)
-        }
-
-        let timeline = Timeline(entries: entries, policy: .atEnd)
-        completion(timeline)
-    }
+struct NotionDatabaseProvider: AppIntentTimelineProvider {
+    typealias Intent = ConfigurationAppIntent
+    typealias Entry = NotionDatabaseEntry
     
-    private func loadTasksFromNotionAPI() -> [TaskItem] {
-        // Check if user has selected databases
-        let selectedDatabases = WidgetSupport.getSelectedDatabasesForWidget()
+    init() {
+        print("[NotionDatabaseProvider] ✅ Provider initialized")
         
-        if selectedDatabases.isEmpty {
-            // No databases selected - return placeholder data
-            return [
-                TaskItem(
-                    title: "Select databases in NoBuddy app",
-                    isCompleted: false,
-                    priority: .medium,
-                    projectName: "Setup"
-                )
-            ]
-        }
+        // Check available databases from real app data
+        let availableDatabases = WidgetSupport.getAvailableDatabasesFromCache()
+        print("[NotionDatabaseProvider] Found \(availableDatabases.count) cached databases from main app")
         
-        // TODO: In a real implementation, this would fetch from selected Notion databases
-        // For now, return sample data but indicate it's from selected databases
-        
-        // NOTE: Widget extensions have strict execution time limits (30 seconds)
-        // Network requests in widgets should be handled carefully with timeouts
-        // and fallback to cached/sample data to prevent "Connection invalidated" errors
-        
-        // Show tasks "from" the selected databases
-        var tasks = sampleTasks
-        if let firstDatabase = selectedDatabases.first {
-            tasks = tasks.map { task in
-                TaskItem(
-                    id: task.id,
-                    title: task.title,
-                    isCompleted: task.isCompleted,
-                    dueDate: task.dueDate,
-                    priority: task.priority,
-                    projectName: firstDatabase.name
-                )
+        if availableDatabases.isEmpty {
+            print("[NotionDatabaseProvider] ⚠️ No databases cached. User needs to open main app and sync databases.")
+        } else {
+            for db in availableDatabases {
+                print("[NotionDatabaseProvider]   - \(db.icon) \(db.name) (ID: \(db.id))")
             }
         }
+    }
+    
+    func placeholder(in context: Context) -> NotionDatabaseEntry {
+        print("[NotionDatabaseProvider] placeholder called")
+        // Return loading state for placeholder
+        return NotionDatabaseEntry(date: Date(), tasks: [], isLoading: true, databaseId: nil, databaseName: nil)
+    }
+
+    func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> NotionDatabaseEntry {
+        print("[NotionDatabaseProvider] snapshot called")
+        print("[NotionDatabaseProvider] Selected database: \(configuration.database?.name ?? "None")")
         
-        return tasks
+        let tasks = await loadTasksFromCache(for: configuration.database)
+        print("[NotionDatabaseProvider] snapshot loaded \(tasks.count) tasks")
+        
+        return NotionDatabaseEntry(
+            date: Date(),
+            tasks: tasks,
+            isLoading: false,
+            databaseId: configuration.database?.id,
+            databaseName: configuration.database?.name
+        )
+    }
+
+    func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<NotionDatabaseEntry> {
+        print("[NotionDatabaseProvider] timeline called")
+        print("[NotionDatabaseProvider] Selected database: \(configuration.database?.name ?? "None")")
+        
+        let tasks = await loadTasksFromCache(for: configuration.database)
+        print("[NotionDatabaseProvider] timeline loaded \(tasks.count) tasks")
+        
+        var entries: [NotionDatabaseEntry] = []
+        let currentDate = Date()
+        
+        // Generate timeline entries (refresh every 15 minutes)
+        for hourOffset in 0 ..< 5 {
+            let entryDate = Calendar.current.date(byAdding: .minute, value: hourOffset * 15, to: currentDate)!
+            let entry = NotionDatabaseEntry(
+                date: entryDate,
+                tasks: tasks,
+                isLoading: false,
+                databaseId: configuration.database?.id,
+                databaseName: configuration.database?.name
+            )
+            entries.append(entry)
+        }
+        
+        return Timeline(entries: entries, policy: .atEnd)
+    }
+    
+    private func loadTasksFromCache(for selectedDatabase: DatabaseSelection?) async -> [TaskItem] {
+        print("[NotionDatabaseProvider] loadTasksFromCache called for database: \(selectedDatabase?.name ?? "None")")
+        
+        // If a specific database is selected via configuration, use it
+        if let selectedDatabase = selectedDatabase {
+            // For now, we'll still load from Core Data but filter by database if possible
+            // In a future update, you could implement database-specific filtering
+            print("[NotionDatabaseProvider] Widget configured for database: \(selectedDatabase.name) (ID: \(selectedDatabase.id))")
+        }
+        
+        // Check Core Data store availability first
+        let storeAvailable = WidgetTaskLoader.shared.isDataAvailable()
+        print("[NotionDatabaseProvider] Core Data store available: \(storeAvailable)")
+        
+        // Check if user has selected databases
+        let selectedDatabases = WidgetSupport.getSelectedDatabasesForWidget()
+        print("[NotionDatabaseProvider] Selected databases count: \(selectedDatabases.count)")
+        for db in selectedDatabases {
+            print("[NotionDatabaseProvider] Database: \(db.name) (ID: \(db.id))")
+        }
+        
+        if selectedDatabase == nil && selectedDatabases.isEmpty {
+            print("[NotionDatabaseProvider] No databases selected or configured, returning empty array")
+            // No databases selected - return empty array (UI will show setup prompt)
+            return []
+        }
+        
+        if !storeAvailable {
+            print("[NotionDatabaseProvider] Core Data store not available yet")
+            // Return empty array - this is normal on first launch
+            return []
+        }
+        
+        do {
+            print("[NotionDatabaseProvider] Attempting to load cached tasks")
+            // Load tasks from Core Data cache
+            let widgetTasks = try await WidgetTaskLoader.shared.loadCachedTasks(limit: 10)
+            print("[NotionDatabaseProvider] Loaded \(widgetTasks.count) widget tasks from cache")
+            
+            if widgetTasks.isEmpty {
+                print("[NotionDatabaseProvider] No cached tasks found")
+                // No cached tasks - return empty array
+                return []
+            }
+            
+            // Convert WidgetTask to TaskItem
+            print("[NotionDatabaseProvider] Converting \(widgetTasks.count) widget tasks to TaskItems")
+            let taskItems = widgetTasks.map { widgetTask in
+                TaskItem(
+                    id: widgetTask.id,
+                    title: widgetTask.title,
+                    isCompleted: widgetTask.isCompleted,
+                    dueDate: widgetTask.dueDate,
+                    priority: convertPriority(widgetTask.priority),
+                    projectName: selectedDatabase?.name ?? selectedDatabases.first?.name ?? "Database"
+                )
+            }
+            
+            print("[NotionDatabaseProvider] Successfully converted tasks:")
+            for task in taskItems {
+                print("[NotionDatabaseProvider]   - \(task.title) (completed: \(task.isCompleted))")
+            }
+            
+            return taskItems
+        } catch {
+            print("[NotionDatabaseProvider] Failed to load cached tasks: \(error)")
+            // Return empty array - UI will handle error display
+            return []
+        }
+    }
+    
+    private func convertPriority(_ priority: WidgetTaskPriority) -> TaskPriority {
+        switch priority {
+        case .none, .low:
+            return .low
+        case .medium:
+            return .medium
+        case .high, .urgent:
+            return .high
+        }
     }
 }
 
 // MARK: - Widget Entry
 
-struct TaskListEntry: TimelineEntry {
+struct NotionDatabaseEntry: TimelineEntry {
     let date: Date
     let tasks: [TaskItem]
     let isLoading: Bool
+    let databaseId: String?
+    let databaseName: String?
 }
 
 // MARK: - Widget View
 
-struct TaskListWidgetView: View {
-    var entry: TaskListProvider.Entry
+struct NotionDatabaseWidgetView: View {
+    var entry: NotionDatabaseProvider.Entry
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.widgetFamily) var widgetFamily
     
+    init(entry: NotionDatabaseProvider.Entry) {
+        self.entry = entry
+        print("[NotionDatabaseWidgetView] ✅ View initialized with \(entry.tasks.count) tasks, isLoading: \(entry.isLoading)")
+    }
+    
     var body: some View {
-        // Remove the ZStack and background - let the system handle the widget container
-        if entry.isLoading {
-            loadingView
-        } else if entry.tasks.isEmpty {
-            emptyStateView
-        } else {
-            contentView
+        Group {
+            if entry.isLoading {
+                loadingView
+            } else if entry.tasks.isEmpty {
+                emptyStateView
+            } else {
+                contentView
+            }
         }
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .containerBackground(colorScheme == .dark ? .black : .white, for: .widget)
     }
     
     // MARK: - Content View (Family-aware)
@@ -134,18 +234,18 @@ struct TaskListWidgetView: View {
         VStack(spacing: 8) {
             // Compact header
             HStack {
-                Image(systemName: "list.bullet")
+                Image(systemName: getDatabaseIcon())
                     .font(.system(size: 12, weight: .medium))
                     .foregroundColor(.blue)
                 
-                Text("Tasks")
+                Text(getDatabaseTitle())
                     .font(.caption)
                     .fontWeight(.semibold)
                     .foregroundColor(.primary)
                 
                 Spacer()
                 
-                // Task count
+                // Item count
                 Text("\(entry.tasks.filter { !$0.isCompleted }.count)")
                     .font(.caption2)
                     .fontWeight(.medium)
@@ -153,10 +253,11 @@ struct TaskListWidgetView: View {
             }
             .padding(.horizontal, 12)
             
-            // Top 3 tasks
+            // Top 3 items
             VStack(spacing: 4) {
                 ForEach(entry.tasks.filter { !$0.isCompleted }.prefix(3)) { task in
-                    CompactTaskRow(task: task)
+                    // TODO: Replace with database-specific content display
+                    TaskRowWidget(task: task)
                 }
             }
             .padding(.horizontal, 12)
@@ -173,11 +274,11 @@ struct TaskListWidgetView: View {
             // Header
             HStack {
                 HStack(spacing: 6) {
-                    Image(systemName: "list.bullet")
+                    Image(systemName: getDatabaseIcon())
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.blue)
                     
-                    Text("Task List")
+                    Text(getDatabaseTitle())
                         .font(.subheadline)
                         .fontWeight(.semibold)
                         .foregroundColor(.primary)
@@ -185,7 +286,7 @@ struct TaskListWidgetView: View {
                 
                 Spacer()
                 
-                // Task count
+                // Item count
                 Text("\(entry.tasks.filter { !$0.isCompleted }.count)")
                     .font(.caption)
                     .fontWeight(.medium)
@@ -197,10 +298,11 @@ struct TaskListWidgetView: View {
             Divider()
                 .padding(.horizontal, 16)
             
-            // Task list (more compact)
+            // Content list (more compact)
             VStack(spacing: 6) {
                 ForEach(entry.tasks.prefix(4)) { task in
-                    MediumTaskRow(task: task)
+                    // TODO: Replace with database-specific content display
+                    TaskRowWidget(task: task)
                 }
                 
                 if entry.tasks.count > 4 {
@@ -225,7 +327,7 @@ struct TaskListWidgetView: View {
             ProgressView()
                 .scaleEffect(1.2)
             
-            Text("Loading tasks...")
+            Text("Loading...")
                 .font(.caption)
                 .foregroundColor(.secondary)
         }
@@ -235,18 +337,36 @@ struct TaskListWidgetView: View {
     
     private var emptyStateView: some View {
         VStack(spacing: 12) {
-            Image(systemName: "checkmark.circle")
-                .font(.system(size: 32, weight: .medium))
-                .foregroundColor(.green)
-            
-            Text("All caught up!")
-                .font(.headline)
-                .fontWeight(.semibold)
-                .foregroundColor(.primary)
-            
-            Text("No tasks to show")
-                .font(.caption)
-                .foregroundColor(.secondary)
+            if WidgetSupport.widgetNeedsConfiguration() {
+                // No databases selected
+                Image(systemName: "gear")
+                    .font(.system(size: 32, weight: .medium))
+                    .foregroundColor(.orange)
+                
+                Text("Setup Required")
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.primary)
+                
+                Text("Select databases in NoBuddy app")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+            } else {
+                // No tasks (Core Data might not be available yet, but databases are selected)
+                Image(systemName: "checkmark.circle")
+                    .font(.system(size: 32, weight: .medium))
+                    .foregroundColor(.green)
+                
+                Text("All caught up!")
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.primary)
+                
+                Text("No items")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
         }
     }
     
@@ -260,7 +380,7 @@ struct TaskListWidgetView: View {
             Divider()
                 .padding(.horizontal, 16)
             
-            // Task list
+            // Content list
             VStack(spacing: 8) {
                 ForEach(entry.tasks.prefix(6)) { task in
                     TaskRowWidget(task: task)
@@ -283,12 +403,12 @@ struct TaskListWidgetView: View {
         HStack {
             // Icon and title
             HStack(spacing: 8) {
-                Image(systemName: "list.bullet")
+                Image(systemName: getDatabaseIcon())
                     .font(.system(size: 16, weight: .medium))
                     .foregroundColor(.blue)
                 
                 VStack(alignment: .leading, spacing: 1) {
-                    Text("NoBuddy")
+                    Text(getDatabaseTitle())
                         .font(.headline)
                         .fontWeight(.semibold)
                         .foregroundColor(.primary)
@@ -308,7 +428,7 @@ struct TaskListWidgetView: View {
             
             Spacer()
             
-            // Task count or configuration needed indicator
+            // Item count or configuration needed indicator
             if WidgetSupport.widgetNeedsConfiguration() {
                 Image(systemName: "gear")
                     .font(.caption)
@@ -336,7 +456,7 @@ struct TaskListWidgetView: View {
     
     private var moreTasksView: some View {
         HStack {
-            Text("+ \(entry.tasks.count - 6) more tasks")
+            Text("+ \(entry.tasks.count - 6) more items")
                 .font(.caption)
                 .foregroundColor(.secondary)
             
@@ -349,10 +469,43 @@ struct TaskListWidgetView: View {
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
     }
+    
+    // MARK: - Helper Functions
+    
+    /// Get the appropriate database icon based on selected databases
+    private func getDatabaseIcon() -> String {
+        let selectedDatabases = WidgetSupport.getSelectedDatabasesForWidget()
+        
+        if selectedDatabases.isEmpty {
+            return "gear"
+        } else if selectedDatabases.count == 1 {
+            // Use the database's icon if available, otherwise default
+            let database = selectedDatabases.first!
+            return database.icon.isEmpty ? "list.bullet" : database.icon
+        } else {
+            // Multiple databases - use a general icon
+            return "folder.badge.plus"
+        }
+    }
+    
+    /// Get the appropriate database title based on selected databases
+    private func getDatabaseTitle() -> String {
+        let selectedDatabases = WidgetSupport.getSelectedDatabasesForWidget()
+        
+        if selectedDatabases.isEmpty {
+            return "Setup Required"
+        } else if selectedDatabases.count == 1 {
+            return selectedDatabases.first!.name
+        } else {
+            return "\(selectedDatabases.count) Databases"
+        }
+    }
 }
 
-// MARK: - Compact Task Row (Small Widget)
+// MARK: - Compact Database Row (Small Widget)
+// TODO: Replace with database-specific content display
 
+/*
 struct CompactTaskRow: View {
     let task: TaskItem
     
@@ -385,9 +538,12 @@ struct CompactTaskRow: View {
         }
     }
 }
+*/
 
-// MARK: - Medium Task Row
+// MARK: - Medium Database Row
+// TODO: Replace with database-specific content display
 
+/*
 struct MediumTaskRow: View {
     let task: TaskItem
     
@@ -456,6 +612,7 @@ struct MediumTaskRow: View {
         }
     }
 }
+*/
 
 // MARK: - Task Row Widget
 
@@ -572,61 +729,16 @@ enum TaskPriority: String, Codable, CaseIterable {
     }
 }
 
-// MARK: - Sample Data
+// MARK: - Preview Support
 
-let sampleTasks: [TaskItem] = [
-    TaskItem(
-        title: "Review project proposal",
-        isCompleted: false,
-        dueDate: Calendar.current.date(byAdding: .day, value: 1, to: Date()),
-        priority: .high,
-        projectName: "Work"
-    ),
-    TaskItem(
-        title: "Buy groceries",
-        isCompleted: false,
-        dueDate: Date(),
-        priority: .medium,
-        projectName: "Personal"
-    ),
-    TaskItem(
-        title: "Complete iOS app design",
-        isCompleted: true,
-        dueDate: Calendar.current.date(byAdding: .day, value: -1, to: Date()),
-        priority: .high,
-        projectName: "Development"
-    ),
-    TaskItem(
-        title: "Schedule dentist appointment",
-        isCompleted: false,
-        dueDate: Calendar.current.date(byAdding: .day, value: 3, to: Date()),
-        priority: .low,
-        projectName: "Health"
-    ),
-    TaskItem(
-        title: "Prepare presentation slides",
-        isCompleted: false,
-        dueDate: Calendar.current.date(byAdding: .day, value: 2, to: Date()),
-        priority: .medium,
-        projectName: "Work"
-    ),
-    TaskItem(
-        title: "Update LinkedIn profile",
-        isCompleted: false,
-        priority: .low,
-        projectName: "Career"
-    ),
-    TaskItem(
-        title: "Read chapter 5",
-        isCompleted: true,
-        priority: .medium,
-        projectName: "Learning"
-    ),
-    TaskItem(
-        title: "Fix bug in authentication",
-        isCompleted: false,
-        dueDate: Date(),
-        priority: .high,
-        projectName: "Development"
-    )
-]
+#Preview(as: .systemMedium) {
+    NoBuddyWidget()
+} timeline: {
+    NotionDatabaseEntry(date: Date(), tasks: previewTasks, isLoading: false, databaseId: "preview-db", databaseName: "My Tasks")
+    NotionDatabaseEntry(date: Date().addingTimeInterval(300), tasks: [], isLoading: false, databaseId: "preview-db", databaseName: "My Tasks")
+}
+
+// MARK: - Preview Data
+
+private let previewTasks: [TaskItem] = [] 
+

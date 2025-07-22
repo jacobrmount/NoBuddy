@@ -9,10 +9,14 @@ import WidgetKit
 import AppIntents
 
 struct ConfigurationAppIntent: WidgetConfigurationIntent {
-    static var title: LocalizedStringResource { "Configuration" }
-    static var description: IntentDescription { "This is an example widget." }
+    static var title: LocalizedStringResource { "Widget Configuration" }
+    static var description: IntentDescription { "Choose which Notion database to display in your widget." }
 
-    // An example configurable parameter.
-    @Parameter(title: "Favorite Emoji", default: "😃")
-    var favoriteEmoji: String
+    // Database selection parameter
+    @Parameter(title: "Notion Database")
+    var database: DatabaseSelection?
+    
+    // Optional: Keep the emoji parameter for backwards compatibility or remove it
+    @Parameter(title: "Widget Icon", default: "📋")
+    var widgetIcon: String
 }
