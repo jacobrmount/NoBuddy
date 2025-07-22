@@ -325,6 +325,13 @@ struct EditTokenView: View {
                 await MainActor.run {
                     databases = fetchedDatabases
                     isLoadingDatabases = false
+                    
+                    // Set context for widget updates
+                    storage.setContext(
+                        databases: fetchedDatabases,
+                        tokenId: token.id,
+                        workspaceName: token.name
+                    )
                 }
                 
                 print("✅ Loaded \(fetchedDatabases.count) databases for token editing")
@@ -383,6 +390,13 @@ struct EditTokenView: View {
             await MainActor.run {
                 databases = fetchedDatabases
                 isRefreshing = false
+                
+                // Set context for widget updates
+                storage.setContext(
+                    databases: fetchedDatabases,
+                    tokenId: token.id,
+                    workspaceName: token.name
+                )
                 
                 // Trigger widget updates
                 WidgetCenter.shared.reloadAllTimelines()

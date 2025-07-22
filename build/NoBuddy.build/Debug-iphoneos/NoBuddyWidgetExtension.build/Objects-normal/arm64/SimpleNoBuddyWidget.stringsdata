@@ -1,0 +1,88 @@
+{
+  "source": "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddyWidget/SimpleNoBuddyWidget.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "NoBuddy Tasks",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 11
+        }
+      },
+      {
+        "comment": "",
+        "key": "Shows your Notion tasks and to-dos",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 12
+        }
+      },
+      {
+        "comment": "",
+        "key": "NoBuddy",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 99
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 106
+        }
+      },
+      {
+        "comment": "",
+        "key": "Unable to load tasks",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 126
+        }
+      },
+      {
+        "comment": "",
+        "key": "Try opening NoBuddy",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 131
+        }
+      },
+      {
+        "comment": "",
+        "key": "Setup Required",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 140
+        }
+      },
+      {
+        "comment": "",
+        "key": "Select databases in app",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 145
+        }
+      },
+      {
+        "comment": "",
+        "key": "All caught up!",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 154
+        }
+      },
+      {
+        "comment": "",
+        "key": "No pending tasks",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 159
+        }
+      }
+    ]
+  },
+  "version": 1
+}

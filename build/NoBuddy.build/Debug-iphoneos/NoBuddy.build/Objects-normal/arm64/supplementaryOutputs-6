@@ -1,0 +1,24 @@
+"/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddy/Extensions/CommonExtensions.swift":
+  dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/CommonExtensions.d"
+  object: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/CommonExtensions.o"
+  diagnostics: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/CommonExtensions.dia"
+  swift-dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/CommonExtensions.swiftdeps"
+  const-values: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/CommonExtensions.swiftconstvalues"
+"/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddy/Services/CoreDataManager.swift":
+  swift-dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/CoreDataManager.swiftdeps"
+  object: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/CoreDataManager.o"
+  diagnostics: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/CoreDataManager.dia"
+  const-values: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/CoreDataManager.swiftconstvalues"
+  dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/CoreDataManager.d"
+"/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddy/Services/Sync/DatabaseSyncManager.swift":
+  swift-dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/DatabaseSyncManager.swiftdeps"
+  diagnostics: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/DatabaseSyncManager.dia"
+  dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/DatabaseSyncManager.d"
+  object: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/DatabaseSyncManager.o"
+  const-values: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/DatabaseSyncManager.swiftconstvalues"
+"/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddy/Views/Common/ButtonStyles.swift":
+  dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/ButtonStyles.d"
+  object: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/ButtonStyles.o"
+  const-values: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/ButtonStyles.swiftconstvalues"
+  diagnostics: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/ButtonStyles.dia"
+  swift-dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/ButtonStyles.swiftdeps"

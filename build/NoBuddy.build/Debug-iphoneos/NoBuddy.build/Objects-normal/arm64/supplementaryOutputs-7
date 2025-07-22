@@ -1,0 +1,24 @@
+"/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddy/Examples/NotionAPIClientExamples.swift":
+  const-values: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/NotionAPIClientExamples.swiftconstvalues"
+  dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/NotionAPIClientExamples.d"
+  swift-dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/NotionAPIClientExamples.swiftdeps"
+  diagnostics: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/NotionAPIClientExamples.dia"
+  object: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/NotionAPIClientExamples.o"
+"/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddy/Views/TokenManagement/TokenDetailView.swift":
+  diagnostics: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/TokenDetailView.dia"
+  const-values: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/TokenDetailView.swiftconstvalues"
+  dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/TokenDetailView.d"
+  swift-dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/TokenDetailView.swiftdeps"
+  object: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/TokenDetailView.o"
+"/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddy/Services/TaskCacheManager.swift":
+  diagnostics: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/TaskCacheManager.dia"
+  const-values: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/TaskCacheManager.swiftconstvalues"
+  swift-dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/TaskCacheManager.swiftdeps"
+  object: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/TaskCacheManager.o"
+  dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/TaskCacheManager.d"
+"/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddy/Models/NotionAPIModels.swift":
+  object: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/NotionAPIModels.o"
+  diagnostics: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/NotionAPIModels.dia"
+  const-values: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/NotionAPIModels.swiftconstvalues"
+  swift-dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/NotionAPIModels.swiftdeps"
+  dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/NotionAPIModels.d"

@@ -1,0 +1,24 @@
+"/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddy/Models/TokenModel.swift":
+  swift-dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/TokenModel.swiftdeps"
+  const-values: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/TokenModel.swiftconstvalues"
+  diagnostics: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/TokenModel.dia"
+  dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/TokenModel.d"
+  object: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/TokenModel.o"
+"/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddy/Views/TokenManagement/EditTokenView.swift":
+  swift-dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/EditTokenView.swiftdeps"
+  object: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/EditTokenView.o"
+  const-values: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/EditTokenView.swiftconstvalues"
+  dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/EditTokenView.d"
+  diagnostics: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/EditTokenView.dia"
+"/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddy/Models/DatabaseModels.swift":
+  dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/DatabaseModels.d"
+  const-values: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/DatabaseModels.swiftconstvalues"
+  object: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/DatabaseModels.o"
+  swift-dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/DatabaseModels.swiftdeps"
+  diagnostics: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/DatabaseModels.dia"
+"/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddy/Services/SecurityTestManager.swift":
+  swift-dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/SecurityTestManager.swiftdeps"
+  dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/SecurityTestManager.d"
+  const-values: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/SecurityTestManager.swiftconstvalues"
+  diagnostics: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/SecurityTestManager.dia"
+  object: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/SecurityTestManager.o"

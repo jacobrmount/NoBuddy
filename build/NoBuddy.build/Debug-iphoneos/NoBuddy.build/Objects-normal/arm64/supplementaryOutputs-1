@@ -1,0 +1,30 @@
+"/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddy/Extensions/SecurityExtensions.swift":
+  object: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/SecurityExtensions.o"
+  swift-dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/SecurityExtensions.swiftdeps"
+  diagnostics: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/SecurityExtensions.dia"
+  dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/SecurityExtensions.d"
+  const-values: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/SecurityExtensions.swiftconstvalues"
+"/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddy/Services/WidgetTaskCaching.swift":
+  dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/WidgetTaskCaching.d"
+  const-values: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/WidgetTaskCaching.swiftconstvalues"
+  object: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/WidgetTaskCaching.o"
+  diagnostics: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/WidgetTaskCaching.dia"
+  swift-dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/WidgetTaskCaching.swiftdeps"
+"/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddy/Item.swift":
+  diagnostics: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/Item.dia"
+  object: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/Item.o"
+  dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/Item.d"
+  const-values: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/Item.swiftconstvalues"
+  swift-dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/Item.swiftdeps"
+"/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddy/Services/DatabaseStorage.swift":
+  dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/DatabaseStorage.d"
+  const-values: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/DatabaseStorage.swiftconstvalues"
+  swift-dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/DatabaseStorage.swiftdeps"
+  object: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/DatabaseStorage.o"
+  diagnostics: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/DatabaseStorage.dia"
+"/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddy/Services/Sync/SyncOperations.swift":
+  swift-dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/SyncOperations.swiftdeps"
+  object: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/SyncOperations.o"
+  diagnostics: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/SyncOperations.dia"
+  dependencies: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/SyncOperations.d"
+  const-values: "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/build/NoBuddy.build/Debug-iphoneos/NoBuddy.build/Objects-normal/arm64/SyncOperations.swiftconstvalues"

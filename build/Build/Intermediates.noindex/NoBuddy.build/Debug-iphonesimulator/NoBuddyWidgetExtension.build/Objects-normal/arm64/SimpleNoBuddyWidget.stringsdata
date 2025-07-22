@@ -1,0 +1,56 @@
+{
+  "source": "/Users/jacobmount/Library/Mobile Documents/com~apple~CloudDocs/1-Projects/Xcode/NoBuddy/NoBuddyWidget/SimpleNoBuddyWidget.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "NoBuddy Tasks",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 11
+        }
+      },
+      {
+        "comment": "",
+        "key": "Shows your Notion tasks and to-dos",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 12
+        }
+      },
+      {
+        "comment": "",
+        "key": "NoBuddy",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 96
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 103
+        }
+      },
+      {
+        "comment": "",
+        "key": "All caught up!",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 121
+        }
+      },
+      {
+        "comment": "",
+        "key": "Unable to load tasks",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 127
+        }
+      }
+    ]
+  },
+  "version": 1
+}

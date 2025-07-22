@@ -65,6 +65,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
+				Models/CoreData/NoBuddy.xcdatamodeld,
 			);
 			target = 429B4AD62E2AF1A2007024A8 /* NoBuddy */;
 		};
@@ -143,13 +144,13 @@
 		429B4ACE2E2AF1A2007024A8 = {
 			isa = PBXGroup;
 			children = (
-				422EEC0D2E2E2F21004E5C64 /* NoBuddyWidgetExtension.entitlements */,
 				429B4AD92E2AF1A2007024A8 /* NoBuddy */,
 				429B4AEB2E2AF1A6007024A8 /* NoBuddyTests */,
 				429B4AF52E2AF1A6007024A8 /* NoBuddyUITests */,
 				429B4B2C2E2AF39B007024A8 /* NoBuddyWidget */,
 				429B4B272E2AF39B007024A8 /* Frameworks */,
 				429B4AD82E2AF1A2007024A8 /* Products */,
+				422EEC0D2E2E2F21004E5C64 /* NoBuddyWidgetExtension.entitlements */,
 			);
 			sourceTree = "<group>";
 		};
@@ -412,6 +413,7 @@
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NoBuddy/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -458,6 +460,7 @@
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NoBuddy/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
